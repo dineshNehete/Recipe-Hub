@@ -1,12 +1,14 @@
-package com.example.recipeapp
+package com.example.recipeapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.recipeapp.R
 
-class FavoriteFragment : Fragment() {
+
+class CategoriesFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
 
@@ -20,7 +22,7 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
 
