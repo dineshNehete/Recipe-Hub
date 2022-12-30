@@ -1,0 +1,9 @@
+A ViewModel is a class that is responsible for preparing and managing the data for an Activity or Fragment. It is designed to store and manage UI-related data in a lifecycle conscious way, surviving configuration changes such as screen rotations.
+
+One of the main benefits of using a ViewModel is that it allows you to separate your UI data from your Activity or Fragment, which can make your code easier to test and maintain. Instead of storing UI data directly in the Activity or Fragment, you can store it in the ViewModel and observe changes to that data in the Activity or Fragment. This can make it easier to test the UI data logic in isolation, and can also make it easier to update the UI in response to changes in the data.
+
+
+ViewModelProvider is a class in Android that is used to provide instances of ViewModel classes for an Activity or Fragment. It is part of the Android Architecture Components library, which provides a set of classes and tools for building Android apps using a MVVM(Model-View-ViewModel) architecture.
+The ViewModelProvider class has a get() method that you can use to retrieve a ViewModel instance for a given Activity or Fragment. The ViewModelProvider will take care of creating a new instance of the ViewModel if one does not already exist, or it will return the existing instance if one has already been created.
+
+ViewModelProvider(this)[HomeViewModel::class.java]
