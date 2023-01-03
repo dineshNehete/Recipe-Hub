@@ -41,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/flBtn_add_to_fav"
         android:src="@drawable/ic_favorite"
         app:backgroundTint="@color/accent"
         app:layout_anchor="@id/appBar"
