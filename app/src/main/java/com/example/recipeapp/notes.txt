@@ -1,3 +1,6 @@
+
+GENERAL THEORY
+
 A ViewModel is a class that is responsible for preparing and managing the data for an Activity or Fragment. It is designed to store and manage UI-related data in a lifecycle conscious way, surviving configuration changes such as screen rotations.
 
 One of the main benefits of using a ViewModel is that it allows you to separate your UI data from your Activity or Fragment, which can make your code easier to test and maintain. Instead of storing UI data directly in the Activity or Fragment, you can store it in the ViewModel and observe changes to that data in the Activity or Fragment. This can make it easier to test the UI data logic in isolation, and can also make it easier to update the UI in response to changes in the data.
@@ -7,3 +10,44 @@ ViewModelProvider is a class in Android that is used to provide instances of Vie
 The ViewModelProvider class has a get() method that you can use to retrieve a ViewModel instance for a given Activity or Fragment. The ViewModelProvider will take care of creating a new instance of the ViewModel if one does not already exist, or it will return the existing instance if one has already been created.
 
 ViewModelProvider(this)[HomeViewModel::class.java]
+
+
+MEAL ACTIVITY AND LAYOUT INFO:
+With the help of a CoordinatorLayout, child views work together harmoniously to implement awesome behaviours such as drags, swipes, flings, or any other gestures.
+
+AppbarLayout ->  If you want just to include the Toolbar without any scrolling effects you can use Toolbar. But if you want to make some scrolling effects like on the images you need to use AppBarLayout.
+
+In general, you should use the "android" namespace for attributes that are part of the Android framework, and you should use the "app" namespace for attributes that are part of the Android support library. This will help to ensure that your layout files are correctly interpreted by the Android system and that your app behaves as expected on all devices.
+
+
+
+
+MVVM STEPS :
+Step 1 : Create a ViewModel for the activity of fragment.
+Step 2 : Inherit from the ViewModel class and call the constructor, also give a primary constructor to the custom ViewModel class.
+Step 3 : The purpose of view model is to separate logic and observe data from outside, therefore create livedata variables of type `MutableLiveData<Model class Name>`.
+ eg. "private var randomMealLiveData = MutableLiveData<Meal>()"
+Step 4 : Create a function to make an actual call eg. getRandomMeal() in this case
+Step 5 : Now to observe this data from outside you need to return this, therefore one function for that. But this should return Livedata type because once we get this value we don't want to change the value.
+ fun observeRandomMealLiveData(): LiveData<Meal> {
+        return randomMealLiveData
+    }
+
+Step 6 : Create a activityMvvm variable which will give the function calls defined in the viewmodel. type must be custome view model class name and also a variable which will hold the object returned from the view model.
+Step 7 : Initialize this variable.
+	eg. homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
+Step 8 : In onViewcreated or any other method call the method defined in the custom view model which will fetch and return the livedata.
+Step 9 : Create a observer function to observe this behavior and if the data returned is not null then assign it to the variable created. eg.
+		private fun observerRandomMeal() {
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner, object : Observer<Meal> {
+            override fun onChanged(meal: Meal?) {
+                if (meal != null) {
+                    Glide.with(this@HomeFragment).load(meal.strMealThumb)
+                        .into(binding?.ivRandomMeal!!)
+                    // the local variable now has all the information about the random meal fetched from the API
+                    this@HomeFragment.randomMeal = meal
+                }
+            }
+
+        })
+    }
