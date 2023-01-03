@@ -134,4 +134,13 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/_10sdp"
         android:src="@drawable/ic_baseline_ondemand_video_24" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_anchor="@id/appBar"
+        android:visibility="gone"
+        app:layout_anchorGravity="bottom" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

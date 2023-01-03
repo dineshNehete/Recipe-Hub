@@ -19,6 +19,16 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
 
     private lateinit var homeMvvm: HomeViewModel
+    private lateinit var randomMeal: Meal
+
+    companion object {
+        const val MEAL_ID = "com.example.recipeapp.fragments.idMeal"
+        const val MEAL_NAME = "com.example.recipeapp.fragments.nameMeal"
+        const val MEAL_THUMBNAIL = "com.example.recipeapp.fragments.thumbNailMeal"
+
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.inflate(layoutInflater)
@@ -55,6 +65,10 @@ class HomeFragment : Fragment() {
     private fun onRandomMealClick() {
         binding?.cvRandomMeal?.setOnClickListener {
             val intent = Intent(activity, MealActivity::class.java)
+            // passing on the data from this fragment to the meal activity
+            intent.putExtra(MEAL_ID, randomMeal.idMeal)
+            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
+            intent.putExtra(MEAL_THUMBNAIL, randomMeal.strMealThumb)
             startActivity(intent)
         }
     }
@@ -69,6 +83,8 @@ class HomeFragment : Fragment() {
                 if (meal != null) {
                     Glide.with(this@HomeFragment).load(meal.strMealThumb)
                         .into(binding?.ivRandomMeal!!)
+                    // the local variable now has all the information about the random meal fetched from the API
+                    this@HomeFragment.randomMeal = meal
                 }
             }
 
