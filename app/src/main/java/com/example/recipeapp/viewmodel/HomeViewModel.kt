@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.recipeapp.pojo.CategoryList
+import com.example.recipeapp.pojo.CategoryMeals
 import com.example.recipeapp.pojo.Meal
 import com.example.recipeapp.pojo.MealList
 import com.example.recipeapp.retrofit.RetrofitInstance
@@ -16,7 +18,7 @@ class HomeViewModel() : ViewModel() {
      * Mutable because its value will change everytime the screen is loaded.
      */
     private var randomMealLiveData = MutableLiveData<Meal>()
-
+    private var popularItemsLiveData = MutableLiveData<List<CategoryMeals>>()
 
     fun getRandomMeal() {
         /**
@@ -52,4 +54,25 @@ class HomeViewModel() : ViewModel() {
     fun observeRandomMealLiveData(): LiveData<Meal> {
         return randomMealLiveData
     }
+
+    fun getPopularItems() {
+        RetrofitInstance.api.getPopularItems("Seafood").enqueue(object : Callback<CategoryList> {
+            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
+                if (response.body() != null) {
+                    popularItemsLiveData.value = response.body()!!.meals
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryList>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun observePopularLiveData() : LiveData<List<CategoryMeals>> {
+        return popularItemsLiveData
+    }
+
+
 }
