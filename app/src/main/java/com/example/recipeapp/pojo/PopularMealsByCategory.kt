@@ -1,6 +1,6 @@
 package com.example.recipeapp.pojo
 
-data class CategoryMeals(
+data class PopularMealsByCategory(
     val idMeal: String,
     val strMeal: String,
     val strMealThumb: String
