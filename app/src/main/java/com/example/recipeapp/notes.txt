@@ -51,3 +51,49 @@ Step 9 : Create a observer function to observe this behavior and if the data ret
 
         })
     }
+
+
+
+While considering the RoomDB :
+keep in mind -> Entity, Dao, Builder(to build the database), Type Convertor (to convert into primitive data type)
+
+# Entity ( analogous to object in programming )
+
+# Dao(Data access object)
+ - Data Access Objects are the main classes where you define your database interactions. They can include a variety of query         methods.
+ - The class marked with @Dao should either be an interface or an abstract class. At compile time, Room will generate an             implementation of this class when it is referenced by a Database.
+
+# Database
+ - This class is annotated with @ database and extends the room database.
+ - It contains the database setup with the entity and serves as the main access point to the database access point.
+
+
+ Creating an object using a function, such as the example provided in the abstract statement "fun mealDao() : MealDao," is a common technique in software development known as a factory method. This approach allows for the encapsulation of object creation logic in a single location, making it more organized and easier to modify or update in the future. Additionally, it allows for greater flexibility in the types of objects that can be created and returned, as the factory method can implement various conditions or logic to determine which specific implementation of the desired object should be instantiated and returned.
+
+
+ If you do not want to use a factory method to create an object, you can simply instantiate the object directly using the "new" keyword or a constructor. For example, instead of using the "fun mealDao() : MealDao" factory method, you could instantiate a MealDao object using the following code:
+
+ val mealDao = MealDao()
+
+ This will create a new instance of the MealDao class and assign it to the variable "mealDao."
+
+ Alternatively, you can use Dependency Injection frameworks like Dagger, Koin, etc to manage object creation, configuration and dependency injection.
+
+
+
+
+
+
+
+ ViewModel Scope Dependency:
+ A ViewModel is a class that is responsible for preparing and managing the data for an Activity or a Fragment. It also survives configuration changes such as screen rotations, so the data it holds is not lost.
+
+ When you use a ViewModel, you can use the scope dependency to manage the lifecycle of the ViewModel. A scope dependency allows you to specify the lifecycle of the ViewModel, so it can be created and destroyed along with the lifecycle of the associated UI component.
+
+ For example, when you use the "ViewModelScopes.ofActivity()" or "ViewModelScopes.ofFragment()" method from the ViewModel library, it creates a ViewModel that is scoped to the lifecycle of the Activity or Fragment. This means that the ViewModel is created when the Activity or Fragment is created, and it is destroyed when the Activity or Fragment is destroyed.
+
+ By using a scope dependency, you can ensure that the ViewModel is only created when it is needed and that it is destroyed when it is no longer needed, which can help to prevent memory leaks and improve the performance of your app.
+
+ Furthermore, when you use scope dependency, you can also define the scope of data that will be retained during configuration changes, this way it can be reused instead of recreating it. This can be very helpful in reducing the network calls and improve the performance of the application.
+
+ "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"

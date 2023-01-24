@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/_160sdp"
     android:layout_height="wrap_content"
+
+    android:padding="@dimen/_5sdp"
+    android:layout_marginRight="@dimen/_5sdp"
     android:elevation="@dimen/_2sdp"
     app:cardCornerRadius="@dimen/_5sdp">
 
@@ -15,7 +18,6 @@
             android:id="@+id/iv_meal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_170sdp"
-            android:background="@color/purple_700"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,7 @@
 
         <TextView
             android:id="@+id/tv_meal_name"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"

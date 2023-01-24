@@ -32,6 +32,7 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
     override fun onBindViewHolder(holder: CategoryMealsViewHolder, position: Int) {
         Glide.with(holder.itemView).load(mealsList[position].strMealThumb).into(holder.mealItemBinding.ivMeal)
         holder.mealItemBinding.tvMealName.text = mealsList[position].strMeal
+
     }
 
     override fun getItemCount(): Int {
