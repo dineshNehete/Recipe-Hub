@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.db.MealDatabase
 import com.example.recipeapp.pojo.*
 import com.example.recipeapp.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,8 +20,11 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     private var randomMealLiveData = MutableLiveData<Meal>()
     private var popularItemsLiveData = MutableLiveData<List<PopularMealsByCategory>>()
     private var categoryListLiveData = MutableLiveData<List<Category>>()
+
     // this function returns all the data from the table
     private var favoritesMealLiveData = mealDatabase.mealDao().getAllMeal()
+    private lateinit var favoriteMealPresentLiveData: LiveData<List<Meal>>
+
     fun getRandomMeal() {
         /**
          * Establishing the connection
@@ -98,9 +103,25 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         return categoryListLiveData
     }
 
-    fun observerFavoritesMealsLiveData() : LiveData<List<Meal>>{
+    fun observerFavoritesMealsLiveData(): LiveData<List<Meal>> {
         return favoritesMealLiveData
     }
 
+    fun observerRecordPresentLiveData(meal : Meal) : LiveData<List<Meal>>{
+        favoriteMealPresentLiveData = mealDatabase.mealDao().isRecordPresent(meal.idMeal)
+        return favoriteMealPresentLiveData
+    }
 
+    // called when we are deleting an item from the room db on swiping from the rv f the favorite fragment
+    fun deleteMealFromFavorites(meal: Meal) {
+        viewModelScope.launch {
+            mealDatabase.mealDao().deleteMeal(meal)
+        }
+    }
+
+    fun insertIntoFavorites(meal: Meal) {
+        viewModelScope.launch {
+            mealDatabase.mealDao().insertMeal(meal)
+        }
+    }
 }
