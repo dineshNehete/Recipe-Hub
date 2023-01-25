@@ -4,19 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.recipeapp.db.MealDatabase
 import com.example.recipeapp.pojo.*
 import com.example.recipeapp.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     /**
      * Mutable because its value will change everytime the screen is loaded.
      */
     private var randomMealLiveData = MutableLiveData<Meal>()
     private var popularItemsLiveData = MutableLiveData<List<PopularMealsByCategory>>()
     private var categoryListLiveData = MutableLiveData<List<Category>>()
+    // this function returns all the data from the table
+    private var favoritesMealLiveData = mealDatabase.mealDao().getAllMeal()
     fun getRandomMeal() {
         /**
          * Establishing the connection
@@ -93,6 +96,10 @@ class HomeViewModel() : ViewModel() {
 
     fun observeCategoryListLiveData(): LiveData<List<Category>> {
         return categoryListLiveData
+    }
+
+    fun observerFavoritesMealsLiveData() : LiveData<List<Meal>>{
+        return favoritesMealLiveData
     }
 
 

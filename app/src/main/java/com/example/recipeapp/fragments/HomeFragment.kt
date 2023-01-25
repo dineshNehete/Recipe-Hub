@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.recipeapp.activities.CategoryMeals
+import com.example.recipeapp.activities.MainActivity
 import com.example.recipeapp.activities.MealActivity
 import com.example.recipeapp.adapters.CategoriesAdapter
 import com.example.recipeapp.adapters.PopularItemsAdapter
@@ -43,7 +44,8 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
 
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
+        // this is done to avoid creating the instances in every fragment, instead we create the instance in the main activity and then from that we take the reference here
+        homeMvvm = (activity as MainActivity).viewModel
         popularItemAdapter = PopularItemsAdapter()
         categoryAdapter = CategoriesAdapter()
     }
