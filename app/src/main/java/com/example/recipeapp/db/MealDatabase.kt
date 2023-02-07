@@ -15,7 +15,8 @@ abstract class MealDatabase : RoomDatabase() {
     abstract fun mealDao(): MealDao
 
     companion object {
-        @Volatile
+        @Volatile 
+        // volatile means other threads can immediately see when a thread changes a instance
         private var INSTANCE: MealDatabase? = null
 
         @Synchronized
